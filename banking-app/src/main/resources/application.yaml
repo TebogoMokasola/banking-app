@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: banking app
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: tcp://localhost:9092/mem:banking
+    username: sa
+    password: password
