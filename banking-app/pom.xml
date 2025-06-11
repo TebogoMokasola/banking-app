@@ -6,16 +6,11 @@
 		<groupId>co.za.learning</groupId>
 		<artifactId>Banking-app</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>banking-app-jar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>banking-app-module</name>
 	<description>Demo project for Spring Boot</description>
-
-	<properties>
-		<java.version>24</java.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
