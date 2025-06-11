@@ -20,4 +20,4 @@ spring:
       ddl-auto: update
 
 server:
-  port: 8081 # Port for the database microservice
+  port: 8081
