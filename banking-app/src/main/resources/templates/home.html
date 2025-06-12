@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+<!--    <link rel = "stylesheet" href = style.css>-->
+    <link rel = "stylesheet" href = /static/home.css>
+</head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container">
+    <div class="content-wrapper">
+        <h1>Welcome to FNB Bank </h1>
+        <p> You can log in or register to get started.</p>
+
+        <div class="button-group">
+            <a th:href="@{/login}" class="button">Login</a>
+            <a th:href="@{/register}" class="button">Register</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>
