@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: database-app
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+server:
+  port: 8081
