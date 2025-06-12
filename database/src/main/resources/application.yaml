@@ -1,24 +1,25 @@
 spring:
   application:
-    name: banking-app
+    name: database-app
 
   datasource:
+    hikari:
+      connection-timeout: 30000 # Timeout in milliseconds (default is 30 seconds)
     driver-class-name: org.h2.Driver
-    #url: jdbc:h2:file:~/testdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE
-    url: jdbc:h2:tcp://localhost:1919/~/testdb
-    username: sa
+    url: #jdbc:h2:tcp://172.16.195.180:8082/./h2db/database
+    username: admin
     password: password
-    initialization-mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
   h2:
     console:
       enabled: true
       path: /h2-console
-
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
+      settings:
+        web-allow-others: true
 
 server:
   port: 8081 # Port for the database microservice

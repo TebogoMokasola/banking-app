@@ -2,43 +2,106 @@ package co.za.learning.database;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+
+import javax.sql.DataSource;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import org.h2.tools.Server;
+import java.util.Enumeration;
 
 @SpringBootApplication
 public class DatabaseApplication {
 
     public static void main(String[] args) {
-        // Variable to hold H2 server instance
-        Server h2Server = null;
+        System.out.println("Starting DATABASE MICROSERVICE...");
 
-        try {
-            // Start H2 server on port 1919
-            System.out.println("Starting DATABASE MICROSERVICE...");
-            h2Server = startH2Server();
-            System.out.println("H2 server started on port 1919...");
-        } catch (SQLException e) {
-            System.err.println("Error starting H2 server: " + e.getMessage());
-            e.printStackTrace();
-            // Exit application if the H2 server fails to start
-            System.exit(1);
+        // Start Spring Boot application and get the application context
+        ApplicationContext context = SpringApplication.run(DatabaseApplication.class, args);
+
+        // Access the Spring Environment to get host and port
+        Environment environment = context.getBean(Environment.class);
+        
+        String port = environment.getProperty("server.port");
+        String contextPath = environment.getProperty("server.servlet.context-path", "");
+
+        String localIpAddress = getPreferredIpAddress();
+        String host = localIpAddress; // Replace with your public IP or domain if hosting externally
+        if (localIpAddress == null) {
+            System.err.println("No valid IP address found matching the criteria. Exiting...");
+            System.exit(1); // Exit if no valid IP found
         }
 
-        // Add shutdown hook to stop H2 server gracefully
-        Server finalH2Server = h2Server; // Required because h2Server must be effectively final
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (finalH2Server != null && finalH2Server.isRunning(true)) {
-                finalH2Server.stop();
-                System.out.println("H2 server stopped.");
-            }
-        }));
+        System.out.println("Using IP Address: " + localIpAddress);
 
-        // Start Spring Boot application
-        SpringApplication.run(DatabaseApplication.class, args);
+        // Customize and set the spring.datasource.url property
+        SpringApplication app = new SpringApplication(DatabaseApplication.class);
+        app.addInitializers(applicationContext -> {
+            ConfigurableEnvironment configurableEnvironment = applicationContext.getEnvironment();
+            configurableEnvironment.getSystemProperties().put(
+                "spring.datasource.url",
+                "jdbc:h2:tcp://" + localIpAddress + ":8082/./h2db/database"
+            );
+        });
+
+        // Construct and display the full URL
+        String baseUrl = "http://" + host + ":" + port + contextPath;
+        System.out.println("Access the service at: " + baseUrl + "/h2-console");
+
+        // Access the DataSource bean
+        DataSource dataSource = context.getBean(DataSource.class);
+
+        // Confirm DataSource initialization
+        System.out.println("DataSource initialized: " + dataSource);
+
+        // Access a database connection
+        try (Connection connection = dataSource.getConnection()) {
+            System.out.println("Successfully connected to the database: " + connection.getMetaData().getURL());
+        } catch (SQLException e) {
+            System.err.println("Failed to connect to the database: " + e.getMessage());
+        }
+
+        System.out.println("DATABASE MICROSERVICE STARTED...");
     }
 
-    private static Server startH2Server() throws SQLException {
-        // Create and start the H2 server
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "1919").start();
+    /**
+     * Retrieves the preferred IP address based on the specified criteria.
+     *
+     * @return A valid IP address starting with "172.16." or "172.32.", or null if none is found.
+     */
+    private static String getPreferredIpAddress() {
+        try {
+            // Iterate through all network interfaces
+            Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = networkInterfaces.nextElement();
+
+                // Skip loopback or inactive interfaces
+                if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+                    continue;
+                }
+
+                Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+                while (inetAddresses.hasMoreElements()) {
+                    InetAddress inetAddress = inetAddresses.nextElement();
+                    String ip = inetAddress.getHostAddress();
+
+                    // Match IP address prefixes
+                    if (ip.startsWith("172.16.") || ip.startsWith("172.32.")) {
+                        return ip; // Return the first valid IP found
+                    }else {
+                    	return "NO IP Sleceted";
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            System.err.println("Failed to retrieve network interfaces: " + e.getMessage());
+        }
+
+        return null; // No valid IP found
     }
 }
