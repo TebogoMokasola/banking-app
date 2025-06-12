@@ -1,24 +1,7 @@
 spring:
   application:
     name: database-app
-
-  datasource:
-    hikari:
-      connection-timeout: 30000 # Timeout in milliseconds (default is 30 seconds)
-    driver-class-name: org.h2.Driver
-<<<<<<< HEAD
-    url: #jdbc:h2:tcp://172.16.195.180:8082/./h2db/database
-    username: admin
-=======
-    url: jdbc:h2:tcp://localhost:1919/~/testdb
-    username: sa
->>>>>>> 554c3fb2e2fda053257e0f9aad7eb74c7a4ae15f
-    password: password
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-
+    
   h2:
     console:
       enabled: true
