@@ -7,10 +7,8 @@ import javax.sql.DataSource;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-
 @Configuration
 public class config {
-
     @Bean(destroyMethod = "")
     public DataSource dataSource() throws SQLException, UnknownHostException, SocketException {
         System.setProperty("h2.bindAddress", "0.0.0.0");
