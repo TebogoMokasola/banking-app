@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://localhost:18080/livereload.js"></script>
+</head>
+<body>
+<div th:fragment="header">
+    <div class="menu" id="navMenu">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/users}">users</a>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: bank-processor
+#  groovy:
+#    template:
+#      cache: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost:9002/banking-db
+    username: admin
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+#  devtools:
+#    restart:
+#      enabled: true
+#    livereload:
+#      enabled: true
+#      port: 18080
+  thymeleaf:
+    cache: false
+server:
+  port: 9090

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration Form</title>
+    <link rel="stylesheet" href= /register-form.css>
+    <script src="http://localhost:18080/livereload.js"></script>
+</head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container">
+    <div class="form-wrapper">
+        <h1>User Registration</h1>
+        <form role="form" th:action="@{/register}" th:object="${userForm}" method="post">
+            <div class="form-group">
+                <div>
+                    <label>Firstname</label>
+                    <input type="text" th:field="*{firstName}" placeholder="Enter your firstname" required>
+                </div>
+
+                <div>
+                    <label>Lastname</label>
+                    <input type="text" th:field="*{lastName}" placeholder="Enter your lastname" required>
+                </div>
+
+                <div>
+                    <label>Gender</label>
+                    <select th:field="*{gender}">
+                        <option th:each="g : ${listGender}" th:value="${g}" th:text="${g}"></option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" placeholder="Enter email address" required>
+                </div>
+
+                <div>
+                    <label>Password</label>
+                    <input type="password" th:field="*{password}" placeholder="Enter your password" required>
+                </div>
+
+                <div>
+                    <label>Confirm Password</label>
+                    <input type="password" th:field="*{confirmPassword}" placeholder="Confirm your password" required>
+                </div>
+
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

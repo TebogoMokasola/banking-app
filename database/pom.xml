@@ -7,18 +7,14 @@
 		<groupId>co.za.learning</groupId>
 		<artifactId>Banking-app</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-
 	</parent>
 	<artifactId>database</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>database</name>
-	<description>Demo project for Spring Boot</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-	</dependencies>
-
+<dependencies>
+	<dependency>
+		<groupId>org.flywaydb</groupId>
+		<artifactId>flyway-core</artifactId>
+	</dependency>
+</dependencies>
 </project>
