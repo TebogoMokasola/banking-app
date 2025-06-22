@@ -2,7 +2,6 @@ package co.za.learning.banking_app.controller;
 
 
 import co.za.learning.banking_app.model.LoginForm;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 

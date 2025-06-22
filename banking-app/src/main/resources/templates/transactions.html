@@ -1,0 +1,102 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Transaction Page</title>-->
+<!--    <link rel="stylesheet" href="/static/transactions.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="~{common/header :: header}"></div>-->
+
+<!--<div class="container">-->
+<!--    <div class="content-wrapper">-->
+<!--        <h1>Transaction Page</h1>-->
+<!--        <p>Perform your transactions here.</p>-->
+
+<!--        <form th:action="@{/transaction/submit}" method="post">-->
+<!--            <div class="form-group">-->
+<!--                <label for="accountNumber">Account Number:</label>-->
+<!--                <input type="text" id="accountNumber" name="accountNumber" required>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="amount">Amount:</label>-->
+<!--                <input type="number" id="amount" name="amount" required>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label for="transactionType">Transaction Type:</label>-->
+<!--                <select id="transactionType" name="transactionType" required>-->
+<!--                    <option value="DEPOSIT">Deposit</option>-->
+<!--                    <option value="WITHDRAWAL">Withdrawal</option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <button type="submit" class="button">Submit</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div th:replace="~{common/footer :: footer}"></div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Page</title>
+    <link rel="stylesheet" href="/static/transactions.css">
+</head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container">
+    <div class="content-wrapper">
+        <h1>Transaction Page</h1>
+        <p>Perform your transactions here.</p>
+
+        <form th:action="@{/transaction/submit}" method="post">
+            <div class="form-group">
+                <label for="accountNumber">Account Number:</label>
+                <input type="text" id="accountNumber" name="accountNumber" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount (Rands):</label>
+                <div class="amount-wrapper">
+                    <span class="currency-label">R</span>
+                    <input type="text" id="amount" name="amount" required placeholder="0.00" oninput="validateAmount(this)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionType">Transaction Type:</label>
+                <select id="transactionType" name="transactionType" required>
+                    <option value="DEPOSIT">Deposit</option>
+                    <option value="WITHDRAWAL">Withdrawal</option>
+                </select>
+            </div>
+
+            <button type="submit" class="button">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // JavaScript to validate amount and format as decimal
+    function validateAmount(input) {
+        let value = input.value.replace(/[^0-9.]/g, ''); // Allow only numbers and decimals
+        const decimalIndex = value.indexOf('.');
+
+        if (decimalIndex !== -1) {
+            // Limit to 2 decimal places
+            value = value.substring(0, decimalIndex + 3);
+        }
+
+        input.value = value;
+    }
+</script>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

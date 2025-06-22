@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="/static/transaction-history.css">
+</head>
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container">
+    <div class="content-wrapper">
+        <h1>Transaction History</h1>
+        <p>View your past transactions below.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Where</th>
+                <th>Amount</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Dynamically populate transactions -->
+            <tr th:each="transaction : ${transactions}">
+                <td th:text="${#dates.format(transaction.date, 'yyyy-MM-dd HH:mm')}">2025-06-18 12:00</td>
+                <td th:text="${transaction.description}">Example Location</td>
+                <td th:text="'R' + #numbers.formatDecimal(transaction.amount, 2, 2)">R100.50</td>
+                <td th:text="${transaction.type}">Credit</td>
+            </tr>
+            <!-- Fallback row if no transactions exist -->
+            <tr th:if="${#lists.isEmpty(transactions)}">
+                <td colspan="4" style="text-align: center;">No transactions found.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{common/footer :: footer}"></div>
+</body>
+</html>

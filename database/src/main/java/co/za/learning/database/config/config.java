@@ -7,25 +7,27 @@ import javax.sql.DataSource;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.Properties;
+
 @Configuration
 public class config {
-    @Bean(destroyMethod = "")
-    public DataSource dataSource() throws SQLException, UnknownHostException, SocketException {
-        System.setProperty("h2.bindAddress", "0.0.0.0");
+
+    private Server server;
+
+    @Bean
+    public DataSource inMemoryH2DatabaseServer() throws SQLException {
         String userDir = System.getProperty("user.dir");
-        String[] args = {
-                "-tcpPort", "8082",
-                "-tcpAllowOthers",
-                "-ifNotExists",
-                "-baseDir", userDir.concat("/h2db")
-        };
-        Server.createTcpServer(args).start();
-        String hostIp = IpAddressUtils.getHostIp();
-        return DataSourceBuilder.create()
-                .driverClassName("org.h2.Driver")
-                .url("jdbc:h2:tcp://" + hostIp + ":8082/./h2db/database")
+        Properties properties = new Properties();
+        properties.setProperty("h2.bindAddress", "0.0.0.0");
+        System.setProperties(properties);
+        final String[] args = {"-tcpPort", "9002", "-ifNotExists", "-baseDir", userDir.concat("/h2db")};
+        server = Server.createTcpServer(args);
+        System.out.println("============starting===============");
+        server.start();
+        return DataSourceBuilder.create().url("jdbc:h2:tcp://localhost:9002/database-engine")
                 .username("admin")
-                .password("password")
+                .password("")
                 .build();
+
     }
 }

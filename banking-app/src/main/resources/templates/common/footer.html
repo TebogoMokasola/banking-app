@@ -1,14 +1,139 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Footer</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;<div th:fragment="footer" align="centre">&ndash;&gt;-->
+<!--&lt;!&ndash;    <hr/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <h3>Copyright</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--<div th:fragment="footer" style="background-color: #f8f9fa; text-align: center; padding: 20px 0; font-family: Arial, sans-serif; font-size: 0.9rem; color: #6c757d; border-top: 2px solid #e0e0e0;">-->
+<!--    <hr style="margin: 0 auto; width: 80%; border: 1px solid #e0e0e0;">-->
+<!--    <h3 style="margin: 10px 0 5px 0; font-size: 1.2rem; color: #343a40;">© 2025 Bank Application</h3>-->
+<!--    <p style="margin: 5px 0;">All rights reserved.</p>-->
+<!--    <div style="margin-top: 15px;">-->
+<!--        <a th:href="@{/terms}" style="text-decoration: none; color: #007bff; margin: 0 10px;">Terms of Service</a> |-->
+<!--        <a th:href="@{/privacy}" style="text-decoration: none; color: #007bff; margin: 0 10px;">Privacy Policy</a> |-->
+<!--        <a th:href="@{/contact}" style="text-decoration: none; color: #007bff; margin: 0 10px;">Contact Us</a>-->
+<!--    </div>-->
+<!--    <div style="margin-top: 15px;">-->
+<!--        <a href="https://www.facebook.com" target="_blank" style="color: #4267B2; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">Facebook</a>-->
+<!--        <a href="https://www.twitter.com" target="_blank" style="color: #1DA1F2; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">Twitter</a>-->
+<!--        <a href="https://www.linkedin.com" target="_blank" style="color: #0077B5; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">LinkedIn</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en"
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Footer</title>
+    <style>
+        /* Styles for the Contact Us popup */
+        #contactPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background-color: #fff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Styling buttons */
+        button {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<div th:fragment="footer" align="centre">
-    <hr/>
-    <h3>Copyright</h3>
+<div th:fragment="footer" style="background-color: #f8f9fa; text-align: center; padding: 20px 0; font-family: Arial, sans-serif; font-size: 0.9rem; color: #6c757d; border-top: 2px solid #e0e0e0;">
+    <hr style="margin: 0 auto; width: 80%; border: 1px solid #e0e0e0;">
+    <h3 style="margin: 10px 0 5px 0; font-size: 1.2rem; color: #343a40;">© 2025 Demo Application</h3>
+    <p style="margin: 5px 0;">All rights reserved.</p>
+    <div style="margin-top: 15px;">
+        <a th:href="@{/terms}" style="text-decoration: none; color: #007bff; margin: 0 10px;">Terms of Service</a> |
+        <a th:href="@{/privacy}" style="text-decoration: none; color: #007bff; margin: 0 10px;">Privacy Policy</a> |
+        <a href="#" onclick="openContactPopup()" style="text-decoration: none; color: #007bff; margin: 0 10px;">Contact Us</a>
+    </div>
+    <div style="margin-top: 15px;">
+        <a href="https://www.facebook.com" target="_blank" style="color: #4267B2; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">Facebook</a>
+<!--        <a href="https://www.twitter.com" target="_blank" style="color: #1DA1F2; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">X</a>-->
+<!--        <a href="https://www.twitter.com" target="_blank" style="color: #000000; font-size: 1.5rem; margin: 0 10px; text-decoration: none; font-weight: bold; font-family: Arial, sans-serif;">X</a>-->
+        <a href="https://www.twitter.com" target="_blank" style="
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+    transform: rotate(45deg);
+    line-height: 0.8;
+    border: 2px solid black;
+    padding: 0.2rem 0.4rem;
+    border-radius: 2px;
+">
+            X
+        </a>
+
+        <a href="https://www.linkedin.com" target="_blank" style="color: #0077B5; font-size: 1.2rem; margin: 0 10px; text-decoration: none;">LinkedIn</a>
+    </div>
 </div>
+
+<!-- Contact Us Popup -->
+<div id="contactPopup">
+    <h2 style="margin-bottom: 10px; font-size: 1.5rem; color: #343a40;">Contact Us</h2>
+    <form th:action="@{/contact}" method="post">
+        <label for="name" style="display: block; margin-bottom: 5px;">First Name</label>
+        <input type="text" id="name" name="name" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 4px;" required>
+
+        <label for="surname" style="display: block; margin-bottom: 5px;">Last Name</label>
+        <input type="text" id="surname" name="surname" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 4px;" required>
+
+        <label for="email" style="display: block; margin-bottom: 5px;">Email Address</label>
+        <input type="email" id="email" name="email" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 4px;" required>
+
+        <label for="issue" style="display: block; margin-bottom: 5px;">Your Issue</label>
+        <textarea id="issue" name="issue" rows="4" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #e0e0e0; border-radius: 4px;" required></textarea>
+
+        <button type="submit" style="background-color: #007bff; color: #fff; padding: 10px 15px; border: none; border-radius: 4px;">Submit</button>
+        <button type="button" onclick="closeContactPopup()" style="background-color: #6c757d; color: #fff; padding: 10px 15px; border: none; border-radius: 4px; margin-left: 10px;">Cancel</button>
+    </form>
+</div>
+
+<!-- Dark Background Overlay -->
+<div id="overlay" onclick="closeContactPopup()"></div>
+
+<script>
+    function openContactPopup() {
+        document.getElementById('contactPopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeContactPopup() {
+        document.getElementById('contactPopup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
 </body>
 </html>
