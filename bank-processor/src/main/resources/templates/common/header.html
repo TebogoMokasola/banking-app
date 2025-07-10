@@ -6,12 +6,15 @@
     <script src="http://localhost:18080/livereload.js"></script>
 </head>
 <body>
-<div th:fragment="header">
-    <div class="menu" id="navMenu">
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/users}">users</a>
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/register}">Register</a>
+<div th:fragment="header" style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 15px 20px; border-bottom: 2px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+    <div class="site-title" style="font-size: 1.5rem; font-weight: bold; color: #343a40;">
+        BANK APPLICATION
+    </div>
+    <div class="menu" id="navMenu" style="display: flex; gap: 20px;">
+        <a th:href="@{/}" style="text-decoration: none; color: #007bff; font-size: 1rem; font-weight: 500;">Home</a>
+        <a th:href="@{/login}" style="text-decoration: none; color: #007bff; font-size: 1rem; font-weight: 500;">Login</a>
+        <a th:href="@{/register}" style="text-decoration: none; color: #007bff; font-size: 1rem; font-weight: 500;">Register</a>
+        <a th:href="@{/users}" style="text-decoration: none; color: #007bff; font-size: 1rem; font-weight: 500;">Users</a>
     </div>
 </div>
 </body>
