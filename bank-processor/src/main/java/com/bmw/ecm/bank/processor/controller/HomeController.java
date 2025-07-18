@@ -1,6 +1,6 @@
 package com.bmw.ecm.bank.processor.controller;
 
-
+import com.bmw.ecm.bank.processor.dto.UserDTO;
 import com.bmw.ecm.bank.processor.entities.UsersEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,17 +17,14 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-
     @RequestMapping("/")
     String getHomePage(Model model) {
         log.info("Loading home page");
         return "home";
     }
 
-
     @GetMapping("register")
     public String userRegistration(Model model) {
-        //empty userform model to store form data
         UsersEntity usersEntity = new UsersEntity();
         model.addAttribute("userForm", usersEntity);
         List<String> listGender = Arrays.asList("Male", "Female");
@@ -38,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/login")
     public String loginform(Model model){
-        model.addAttribute("login", new UserForm());
+        model.addAttribute("login", new UserDTO());
         return "login";
     }
 
@@ -47,7 +43,6 @@ public class HomeController {
         log.info("Getting users for update");
         return "update-user";
     }
-
 
     @PostMapping("/update-user")
     ModelAndView updateUser(Model model, @ModelAttribute(name = "lastname") String lastname,

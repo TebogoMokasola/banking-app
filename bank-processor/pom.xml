@@ -13,6 +13,10 @@
     <name>bank-processor</name>
     <description>bank-processor</description>
 
+    <properties>
+        <modelmapper.version>3.2.4</modelmapper.version>
+    </properties>
+
 
     <dependencies>
         <dependency>
@@ -23,7 +27,7 @@
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>3.2.4</version>
+            <version>${modelmapper.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

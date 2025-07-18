@@ -20,7 +20,6 @@ public class UsersController {
     ModelAndView getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int pageSize) {
 
         Page<UserDTO> users = userService.getUsers(page, pageSize);
-
         int totalPages = users.getTotalPages();
         long totalElements = users.getTotalElements();
         ModelAndView modelAndView = new ModelAndView("users");
