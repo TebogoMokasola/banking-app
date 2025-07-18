@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+    <link rel="stylesheet" href="/update-form.css">
 </head>
 <body>
+<div th:replace="~{common/header :: header}"></div>
 
-<form  action="/update-user" method="post">
+<div class="container">
+    <div class="form-wrapper">
+        <h1>Update User</h1>
+        <form action="/update-user" method="post">
+            <input name="id" id="id" type="text" hidden="hidden" value="2">
 
-    <label>
-        <input name="id" id="id" type="text" hidden="hidden" value="2">
-    </label>
+            <div class="form-group">
+                <div>
+                    <label for="firstname">Firstname</label>
+                    <input type="text" name="firstname" id="firstname" placeholder="Enter your firstname" required>
+                </div>
+                <div>
+                    <label for="lastname">Lastname</label>
+                    <input type="text" name="lastname" id="lastname" placeholder="Enter your lastname" required>
+                </div>
+            </div>
 
-    <label for="firstname"></label>
-    <input type="text" name="firstname" id="firstname">
-
-    <label for="lastname"></label>
-    <input type="text" name="lastname" id="lastname">
-
-    <input type="submit">
-</form>
-
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<div th:replace="~{common/footer :: footer}"></div>
 </body>
 </html>

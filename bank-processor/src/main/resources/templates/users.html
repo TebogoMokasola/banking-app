@@ -1,26 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${name}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href ="/user.css">
+    <script src="http://localhost:18080/livereload.js"></script>
+    <title th:text="${name}">Users</title>
 </head>
 <body>
+<div th:replace="~{common/header :: header}"></div>
+<div>
+    <h1>Users</h1>
+</div>
 
 <div>
-    <table>
+    <table border="1">
+        <thead>
         <tr>
-            <th>id</th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>gender</th>
-            <th>email</th>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Email</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="user : ${users}">
             <td th:text="${user.id}"></td>
-            <td th:text="${user.firstname}"></td>
-            <td th:text="${user.lastname}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.surname}"></td>
             <td th:text="${user.gender}"></td>
+            <td th:text="${user.email}"></td>
+        </tr>
+        </tbody>
     </table>
 </div>
+
+<div>
+    <ul>
+        <li th:if="${currentPage > 0}">
+            <a th:href="@{/users(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
+        </li>
+        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+            <a th:href="@{/users(page=${i}, size=${pageSize})}" th:text="${i + 1}"></a>
+        </li>
+        <li th:if="${currentPage < totalPages - 1}">
+                <a th:href="@{/users(page=${currentPage + 1}, size=${pageSize})}">Next</a>
+        </li>
+    </ul>
+</div>
+<div>
+    <h5 th:text = "'Total Users ' + ${totalElements}"></h5>
+</div>
 </body>
+<div th:replace="~{common/footer :: footer}"></div>
 </html>
+
