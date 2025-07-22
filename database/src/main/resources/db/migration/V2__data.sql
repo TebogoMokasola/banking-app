@@ -63,27 +63,51 @@ VALUES
     (31, 'Zoe', 'Morgan', 'Female', 'zoe.morgan@example.com', 'zoe_morgan',
      '$2a$10$abcdef1234567890abcdef1234567890abcdef1234567890abcdef', '2025-07-06 09:50:00');
 
+-- INSERT INTO banking.transactions (id, user_id, transaction_type, amount, transaction_date, description)
+-- VALUES
+--     (1, 1, 'Deposit', 500.00, '2025-07-01 10:30:00', 'Initial deposit'),
+--     (2, 2, 'Withdrawal', 200.00, '2025-07-01 14:15:00', 'ATM withdrawal'),
+--     (3, 3, 'Transfer', 150.00, '2025-07-02 09:00:00', 'Sent to Alex Johnson'),
+--     (4, 4, 'Deposit', 300.00, '2025-07-02 12:20:00', 'Received salary'),
+--     (5, 2, 'Withdrawal', 100.00, '2025-07-03 15:45:00', 'Online purchase'),
+--     (6, 2, 'Deposit', 800.00, '2025-07-03 10:30:00', 'Business income'),
+--     (7, 7, 'Transfer', 120.00, '2025-07-04 11:15:00', 'Sent to Bob Miller'),
+--     (8, 1, 'Deposit', 200.00, '2025-07-04 13:45:00', 'Gift received'),
+--     (9, 1, 'Withdrawal', 50.00, '2025-07-05 16:00:00', 'Grocery shopping'),
+--     (10, 3, 'Deposit', 400.00, '2025-07-05 18:30:00', 'Freelance project'),
+--     (11, 3, 'Transfer', 300.00, '2025-07-06 09:45:00', 'Sent to Frank Rodriguez'),
+--     (12, 12, 'Deposit', 700.00, '2025-07-06 08:20:00', 'Investment profit'),
+--     (13, 13, 'Withdrawal', 150.00, '2025-07-07 10:15:00', 'Medical bill'),
+--     (14, 14, 'Deposit', 600.00, '2025-07-07 14:10:00', 'Bonus received'),
+--     (15, 15, 'Transfer', 50.00, '2025-07-07 12:00:00', 'Sent to Jack Allen'),
+--     (16, 16, 'Deposit', 450.00, '2025-07-07 13:00:00', 'Rent payment received'),
+--     (17, 17, 'Withdrawal', 200.00, '2025-07-08 09:15:00', 'Electricity bill'),
+--     (18, 18, 'Deposit', 500.00, '2025-07-08 10:30:00', 'Freelance payment'),
+--     (19, 19, 'Transfer', 100.00, '2025-07-08 15:50:00', 'Sent to Nathan Parker'),
+--     (20, 20, 'Withdrawal', 80.00, '2025-07-08 10:05:00', 'Dining out');
+
 INSERT INTO banking.transactions (id, user_id, transaction_type, amount, transaction_date, description)
 VALUES
-    (1, 1, 'Deposit', 500.00, '2025-07-01 10:30:00', 'Initial deposit'),
-    (2, 2, 'Withdrawal', 200.00, '2025-07-01 14:15:00', 'ATM withdrawal'),
-    (3, 3, 'Transfer', 150.00, '2025-07-02 09:00:00', 'Sent to Alex Johnson'),
-    (4, 4, 'Deposit', 300.00, '2025-07-02 12:20:00', 'Received salary'),
-    (5, 2, 'Withdrawal', 100.00, '2025-07-03 15:45:00', 'Online purchase'),
-    (6, 2, 'Deposit', 800.00, '2025-07-03 10:30:00', 'Business income'),
-    (7, 7, 'Transfer', 120.00, '2025-07-04 11:15:00', 'Sent to Bob Miller'),
-    (8, 1, 'Deposit', 200.00, '2025-07-04 13:45:00', 'Gift received'),
-    (9, 1, 'Withdrawal', 50.00, '2025-07-05 16:00:00', 'Grocery shopping'),
-    (10, 3, 'Deposit', 400.00, '2025-07-05 18:30:00', 'Freelance project'),
-    (11, 3, 'Transfer', 300.00, '2025-07-06 09:45:00', 'Sent to Frank Rodriguez'),
-    (12, 12, 'Deposit', 700.00, '2025-07-06 08:20:00', 'Investment profit'),
-    (13, 13, 'Withdrawal', 150.00, '2025-07-07 10:15:00', 'Medical bill'),
-    (14, 14, 'Deposit', 600.00, '2025-07-07 14:10:00', 'Bonus received'),
-    (15, 15, 'Transfer', 50.00, '2025-07-07 12:00:00', 'Sent to Jack Allen'),
-    (16, 16, 'Deposit', 450.00, '2025-07-07 13:00:00', 'Rent payment received'),
-    (17, 17, 'Withdrawal', 200.00, '2025-07-08 09:15:00', 'Electricity bill'),
-    (18, 18, 'Deposit', 500.00, '2025-07-08 10:30:00', 'Freelance payment'),
-    (19, 19, 'Transfer', 100.00, '2025-07-08 15:50:00', 'Sent to Nathan Parker'),
-    (20, 20, 'Withdrawal', 80.00, '2025-07-08 10:05:00', 'Dining out');
+    (1, 1, 'Deposit', 500.00, '2025-07-01', 'Initial deposit'),
+    (2, 2, 'Withdrawal', 200.00, '2025-07-01', 'ATM withdrawal'),
+    (3, 3, 'Transfer', 150.00, '2025-07-02', 'Sent to Alex Johnson'),
+    (4, 4, 'Deposit', 300.00, '2025-07-02', 'Received salary'),
+    (5, 2, 'Withdrawal', 100.00, '2025-07-03', 'Online purchase'),
+    (6, 2, 'Deposit', 800.00, '2025-07-03', 'Business income'),
+    (7, 7, 'Transfer', 120.00, '2025-07-04', 'Sent to Bob Miller'),
+    (8, 1, 'Deposit', 200.00, '2025-07-04', 'Gift received'),
+    (9, 1, 'Withdrawal', 50.00, '2025-07-05', 'Grocery shopping'),
+    (10, 3, 'Deposit', 400.00, '2025-07-05', 'Freelance project'),
+    (11, 3, 'Transfer', 300.00, '2025-07-06', 'Sent to Frank Rodriguez'),
+    (12, 12, 'Deposit', 700.00, '2025-07-06', 'Investment profit'),
+    (13, 13, 'Withdrawal', 150.00, '2025-07-07', 'Medical bill'),
+    (14, 14, 'Deposit', 600.00, '2025-07-07', 'Bonus received'),
+    (15, 15, 'Transfer', 50.00, '2025-07-07', 'Sent to Jack Allen'),
+    (16, 16, 'Deposit', 450.00, '2025-07-07', 'Rent payment received'),
+    (17, 17, 'Withdrawal', 200.00, '2025-07-08', 'Electricity bill'),
+    (18, 18, 'Deposit', 500.00, '2025-07-08', 'Freelance payment'),
+    (19, 19, 'Transfer', 100.00, '2025-07-08', 'Sent to Nathan Parker'),
+    (20, 20, 'Withdrawal', 80.00, '2025-07-08', 'Dining out');
+
 
 

@@ -7,6 +7,7 @@ import com.bmw.ecm.bank.processor.repository.TransactionsRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,9 +21,9 @@ public class TransactionsService {
         this.transactionsBuilder = transactionsBuilder;
     }
 
-    public Page<TransactionsDTO> getTransactions(int page, int size) {
+    public Page<TransactionsDTO> getTransactions(Specification<TransactionsEntity> sec, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<TransactionsEntity> transactionsEntityPage = transactionsRepository.findAll(pageable);
+        Page<TransactionsEntity> transactionsEntityPage = transactionsRepository.findAll(sec, pageable);
         return transactionsEntityPage.map(transactionsBuilder ::convertEntityToDTO);
     }
 

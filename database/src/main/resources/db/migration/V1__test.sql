@@ -21,7 +21,7 @@ CREATE TABLE banking.transactions (
                                       user_id BIGINT NOT NULL,
                                       amount DECIMAL(10, 2) NOT NULL,
                                       transaction_type VARCHAR(50) NOT NULL, -- e.g., "Deposit", "Withdrawal"
-                                      transaction_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                      transaction_date DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                       description VARCHAR(255),
                                       FOREIGN KEY (user_id) REFERENCES banking.users(id)
                                           ON DELETE CASCADE ON UPDATE CASCADE
