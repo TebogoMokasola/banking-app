@@ -16,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UsersController {
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public UsersController(UserService userService, UserRepository userRepository) {
+    public UsersController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
    @RequestMapping("/users")
