@@ -3,25 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel ="stylesheet" href ="/css/user.css">
+    <link rel="stylesheet" href="/css/user.css">
     <script src="http://localhost:18080/livereload.js"></script>
-    <title th:text="${name}">Users</title>
+    <title>Users</title>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            min-width: 150px;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown-content input {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            margin-left: 5px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .dropdown-btn::after {
+            content: "▼";
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+    <script>
+        function applyFilters() {
+            // Build query parameters based on user input
+            const firstname = document.getElementById('nameFilter').value;
+            const lastname = document.getElementById('surnameFilter').value;
+            const gender = document.getElementById('genderFilter').value;
+            const email = document.getElementById('emailFilter').value;
+
+            // Redirect with query parameters for JPA Specification filtering
+            const url = `/users?page=0&pageSize=10&firstname=${encodeURIComponent(firstname)}&lastname=${encodeURIComponent(lastname)}&gender=${encodeURIComponent(gender)}&email=${encodeURIComponent(email)}`;
+            window.location.href = url;
+        }
+        function clearFilters() {
+            // Clear all filter inputs
+            document.getElementById('nameFilter','surnameFilter','genderFilter','emailFilter').value = '';
+
+            // Redirect to the base URL (no filters)
+            window.location.href = '/users?page=0&pageSize=10';
+        }
+    </script>
 </head>
+
 <body>
 <div th:replace="~{common/header :: header}"></div>
-<div>
-    <h1>Users</h1>
-</div>
 
-<div>
-    <table border="1">
+<div class="container">
+    <h1>Users</h1>
+
+    <table border="1" id="userTable">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Email</th>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+                <div class="dropdown">
+                    <button class="dropdown-btn"></button>
+                    <div class="dropdown-content">
+                        <input type="text" id="nameFilter" placeholder="Search Name">
+                        <button onclick="applyFilters()">Apply</button>
+                        <button onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+            </th>
+            <th>
+                Surname
+                <div class="dropdown">
+                    <button class="dropdown-btn"></button>
+                    <div class="dropdown-content">
+                        <input type="text" id="surnameFilter" placeholder="Search Surname">
+                        <button onclick="applyFilters()">Apply</button>
+                        <button onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+            </th>
+            <th>
+                Gender
+                <div class="dropdown">
+                    <button class="dropdown-btn"></button>
+                    <div class="dropdown-content">
+                        <input type="text" id="genderFilter" placeholder="Search Gender">
+                        <button onclick="applyFilters()">Apply</button>
+                        <button onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+            </th>
+            <th>
+                Email
+                <div class="dropdown">
+                    <button class="dropdown-btn"></button>
+                    <div class="dropdown-content">
+                        <input type="text" id="emailFilter" placeholder="Search Email">
+                        <button onclick="applyFilters()">Apply</button>
+                        <button onclick="clearFilters()">Clear</button>
+                    </div>
+                </div>
+            </th>
         </tr>
         </thead>
         <tbody>
@@ -34,26 +137,28 @@
         </tr>
         </tbody>
     </table>
+
+    <div style="margin-top: 20px;">
+        <ul>
+            <li th:if="${currentPage > 0}">
+                <a th:href="@{/users(page=${currentPage - 1}, pageSize=${pageSize}, firstname=${firstname}, lastname=${lastname}, email=${email}, gender=${gender})}">Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a th:href="@{/users(page=${i}, pageSize=${pageSize}, firstname=${firstname}, lastname=${lastname}, email=${email}, gender=${gender})}"
+                   th:text="${i + 1}"></a>
+            </li>
+            <li th:if="${currentPage < totalPages - 1}">
+                <a th:href="@{/users(page=${currentPage + 1}, pageSize=${pageSize}, firstname=${firstname}, lastname=${lastname}, email=${email}, gender=${gender})}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <h5 th:text="'Total Users: ' + ${totalElements}"></h5>
+    </div>
 </div>
 
-<div>
-    <ul>
-        <li th:if="${currentPage > 0}">
-            <a th:href="@{/users(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
-        </li>
-        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                th:classappend="${i == currentPage} ? 'active'">
-            <a th:href="@{/users(page=${i}, size=${pageSize})}" th:text="${i + 1}"></a>
-        </li>
-        <li th:if="${currentPage < totalPages - 1}">
-                <a th:href="@{/users(page=${currentPage + 1}, size=${pageSize})}">Next</a>
-        </li>
-    </ul>
-</div>
-<div>
-    <h5 th:text = "'Total Users ' + ${totalElements}"></h5>
-</div>
 </body>
 <div th:replace="~{common/footer :: footer}"></div>
 </html>
-
